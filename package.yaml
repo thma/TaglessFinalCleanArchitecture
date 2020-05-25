@@ -1,0 +1,96 @@
+name:                TaglessFinalCleanArchitecture
+version:             0.1.0.0
+github:              "thma/TaglessFinalCleanArchitecture"
+license:             BSD3
+author:              "Thomas Mahler"
+maintainer:          "thma@apache.org"
+copyright:           "2020 Thomas Mahler"
+
+extra-source-files:
+- README.md
+
+# Metadata used when publishing your package
+# synopsis:            Short description of your package
+# category:            Web
+
+# To avoid duplicated efforts in documentation and dealing with the
+# complications of embedding Haddock markup inside cabal files, it is
+# common to point users to the README.md file.
+description:         Please see the README on GitHub at <https://github.com/thma/PolysemyCleanArchitecture#readme>
+
+ghc-options:
+  - -fplugin=Polysemy.Plugin
+
+default-extensions:
+  # Recommended for Polysemy
+  - DataKinds
+  - FlexibleContexts
+  - GADTs
+  - LambdaCase
+  - PolyKinds
+  - RankNTypes
+  - ScopedTypeVariables
+  - TypeApplications
+  - TypeOperators
+  - TypeFamilies
+  - TemplateHaskell
+
+  # Deriving extensions
+  - GeneralizedNewtypeDeriving
+  - DeriveGeneric
+
+  # Misc
+  - OverloadedStrings
+
+dependencies:
+- base >= 4.7 && < 5
+- aeson
+- aeson-pretty
+- servant-server
+- servant
+- time
+- wai
+- warp
+- bytestring
+- http-types
+- text
+- containers
+- polysemy
+- polysemy-plugin
+- errors
+- mtl
+- directory
+- sqlite-simple
+
+# Swagger UI
+- servant-docs
+- servant-swagger
+- servant-swagger-ui
+- servant-swagger-ui-core
+- swagger2
+- lens
+- process
+
+library:
+  source-dirs: src
+  ghc-options: -O2 -flate-specialise -fspecialise-aggressively
+
+executables:
+  PolysemyCleanArchitecture:
+    main:                Main.hs
+    source-dirs:         app
+    ghc-options: -threaded -rtsopts -with-rtsopts=-N -O2 -flate-specialise -fspecialise-aggressively
+    dependencies:
+    - TaglessFinalCleanArchitecture
+
+tests:
+  PolysemyCleanArchitecture-test:
+    main:                Spec.hs
+    source-dirs:         test
+    ghc-options: -threaded -rtsopts -with-rtsopts=-N -O2 -flate-specialise -fspecialise-aggressively
+    dependencies:
+    - TaglessFinalCleanArchitecture
+    - hspec
+    - QuickCheck
+    - hspec-wai
+    - wai-extra
