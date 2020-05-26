@@ -43,7 +43,6 @@ instance (Show k, Read k, ToJSON v, FromJSON v) => Persistence k v IO where
 instance Trace IO where
   trace _ = return () --putStrLn
   
-  
 instance Input IO Config where
   input = return Config {port = 8080, dbPath = "kvs-TF.db", backend = SQLite, verbose = False}
   
