@@ -12,4 +12,6 @@ class Monad m => Persistence k v m where
 class Monad m => Trace m where
   trace :: String -> m ()
   
+class Monad m => Input m a where
+  input :: m a  
   

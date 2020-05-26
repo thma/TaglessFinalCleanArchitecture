@@ -42,6 +42,11 @@ instance (Show k, Read k, ToJSON v, FromJSON v) => Persistence k v IO where
   
 instance Trace IO where
   trace _ = return () --putStrLn
+  
+  
+instance Input IO Config where
+  input = return Config {port = 8080, dbPath = "kvs-TF.db", backend = SQLite, verbose = False}
+  
 
 --getAction :: (Member (Input Config) r, Member (Embed IO) r, Member Trace r, Show k, Read k, ToJSON v, FromJSON v) => k -> Sem r (Maybe v)
 getAction key = do
@@ -102,5 +107,5 @@ connectionFrom c = do
         SQL.execute_ conn "CREATE TABLE IF NOT EXISTS store (key TEXT PRIMARY KEY, value TEXT)"
         return conn
 
-input :: IO Config
-input = return Config {port = 8080, dbPath = "kvs-TF.db", backend = SQLite, verbose = False}
+--input :: IO Config
+--input = return Config {port = 8080, dbPath = "kvs-TF.db", backend = SQLite, verbose = False}
