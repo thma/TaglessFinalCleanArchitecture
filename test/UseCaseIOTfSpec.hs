@@ -26,12 +26,9 @@ main = hspec spec
 instance ToJSON Reservation
 instance FromJSON Reservation
 
--- | helper function to clean the test data files
---deleteAllFiles :: IO [()]
---deleteAllFiles = do
---  allFiles <- listDirectory "."
---  let filteredFiles = filter (isSuffixOf ".json") allFiles
---  mapM removeFile (map (\f -> dataDir ++ f) filteredFiles)
+
+tryRemoveFile :: FilePath -> IO (Either IOException ())
+tryRemoveFile file = try $ removeFile file
 
 
 day = fromGregorian 2020 5 2
@@ -42,7 +39,7 @@ spec =
   --return deleteAllFiles
   describe "Reservation Use Case TF" $ do
     it "needs a file cleaning for repeatable tests in the file system..." $ do    
-      removeFile "kvs-TF.db"  
+      tryRemoveFile "kvs-TF.db"  
       map <- listAll
       M.size map `shouldBe` 0
 
